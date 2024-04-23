@@ -5,7 +5,7 @@ from tensorflow.keras.layers import Dense, LSTM
 from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau
 import os, openpyxl
 from tensorflow.python.client import device_lib
-from test import find_rows_by_first_cell_value
+from parse import find_rows_by_first_cell_value
 
 def generate_model(values: list, number: int):
     data = np.array(values)
