@@ -3,24 +3,27 @@ import openpyxl
 def find_rows_by_first_cell_value(file_name, value):
     # Загружаем файл
     workbook = openpyxl.load_workbook(file_name)
-    # Создание resulton для конечных данных
+
+    # Создание result для конечных данных
     result = {
         "Data" : []
     }
-    # Перебираем все листы от 1 до 52 включительно (кроме 46)
-    for sheet_index in range(1, 53):
-        if sheet_index == 46 or sheet_index == 49:
-            continue
-        # Получаем лист по индексу
-        sheet = workbook[str(sheet_index)]
 
+    sheet_names = workbook.sheetnames
+
+    # Перебираем все (г)листы от 1 до 52 включительно (кроме 46)
+    for sheet_index in range(1, len(sheet_names)):
+        # Получаем лист по индексу
+        sheet = workbook[sheet_names[sheet_index]]
+
+        sheet_name = sheet.title
         # Перебираем все строки в листе
         for row in sheet.iter_rows():
             # Если регион совпал
             if row[0].value == value:
                 row_data = [] # Промежуточный массив
                 interim = {
-                    "Indicator": sheet_index,
+                    "Indicator": sheet_name,
                     "Values": []
                 }
                 # В цикле проверяем на число и добавляем в промежуточный массив
