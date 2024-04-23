@@ -34,7 +34,3 @@ def find_rows_by_first_cell_value(file_name, value):
                 result['Data'].append(interim)
 
     return result['Data']
-
-file_name = 'data/data.xlsx'
-value = 'Ростовская область'
-find_rows_by_first_cell_value(file_name, value)

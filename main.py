@@ -39,6 +39,9 @@ def generate_model(values: list, number: int):
     forecast_2023 = model.predict(test_data)
     print(f"Прогноз на следующий год по показателю {number}: {forecast_2023[-1][0]:.2f}")
 
+    if not os.path.exists('models'):
+        os.makedirs('models')
+
     save_path = os.path.join(os.getcwd(), f'models/indicator{number}_model.h5')
     model.save(save_path)
 
