@@ -3,7 +3,7 @@ import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, LSTM
 from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau
-import os, openpyxl
+import os, openpyxl, concurrent.futures
 from tensorflow.python.client import device_lib
 from parse import find_rows_by_first_cell_value
 from constants import DATA_CUR
@@ -65,9 +65,9 @@ def main():
     file_name = 'data/data.xlsx'
     value = 'Ростовская область'
     data_cur = find_rows_by_first_cell_value(file_name, value)
-    for item in data_cur:
-        generate_model(item['Values'], item['Indicator'])
-
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        for item in data_cur:
+            executor.submit(generate_model, item['Values'], item['Indicator'])
 
 if __name__ == "__main__":
     main()
